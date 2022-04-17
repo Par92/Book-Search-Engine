@@ -1,28 +1,44 @@
 //Define the query and mutation functionality to work with the Mongoose models.
 const { Book, User } = require('../models');
+const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    books: async () => {
-      return Book.find({});
-    },
-    users: async (parent, { _id }) => {
-      const params = _id ? { _id } : {};
-      return User.find(params);
+    me: async (parent, args, context) => {
+        return await User.findById(args.id).polulate('user');
     },
   },
   Mutation: {
-    createUser: async (parent, args) => {
-      const user = await User.create(args);
-      return user;
+    addUser: async (parent, {username, email, password}) => {
+        const newUser = await User.create({username, email, password});
+        const token = signToken(newUser);
+        return {token, newUser}; 
+    },
+    login: async (parent, {email, password}) => {
+        const user = await User.findOne({email});
+
+        if (!user) {
+            throw new AuthenticationError('No User with the email found!');
+        }
+        const correctPw = await user.isCorrectPassword(password);
+        if (!correctPw) {
+            throw new AuthenticationError('Incorrect password');
+        }
+        const token = signToken(user);
+        return {token, user};
+        
     },
     saveBook: async (parent, { book }, context) => {
-      const updatedUser = await User.findOneAndUpdate(
-        { _id: user._id },
-        { $addToSet: { savedBooks: body } },
-        { new: true, runValidators: true }
+        return await User.findOneAndUpdate(
+            { _id: User._id },
+            { $addToSet: { savedBooks: book } },
+            { new: true }
       );
-      return updatedUser;
+    },
+    removeBook: async (parent, {bookID}) => {
+        return await User.findOneAndUpdate(
+
+        );
     },
   },
 };
