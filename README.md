@@ -22,7 +22,7 @@ MERN
 
   When the application is cloned, the user will need to run an 'npm i' which will install the node modules for both the client and server sides. Then the user will type 'npm run develop' to start the app on a local server. If visiting the link instead, the user will be presented with a menu with the options Search for Books and Login/Signup and an input field to search for books and a submit button. If the user clicks on the Login/Signup menu option, a modal appears on the screen with a toggle between the option to log in or sign up. Now the menu options change to Search for Books, see my saved books, and Logout. 
   
-  [](https://lit-retreat-07574.herokuapp.com/)
+  ![app](https://lit-retreat-07574.herokuapp.com/)
 
 ![booksearch](https://user-images.githubusercontent.com/97469705/163878133-0d56150f-e46e-48cc-8618-035566da95b6.png)
 
