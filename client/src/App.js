@@ -5,7 +5,12 @@ import SavedBooks from './pages/SavedBooks';
 import Navbar from './components/Navbar';
 
 //add 
-import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink,} from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 
 const httpLink = createHttpLink({
@@ -34,7 +39,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <router>
+      <Router>
       <>
         <Navbar />
         <Routes>
@@ -52,7 +57,7 @@ function App() {
           />
         </Routes>
       </>
-      </router>
+      </Router>
     </ApolloProvider>
   );
 }
